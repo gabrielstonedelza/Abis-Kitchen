@@ -4,7 +4,7 @@ from .models import Food, FoodImages, Notifications, Reviews, FoodReviews, Priva
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
-        fields = ['id','name','category','price','image','views','ingredients','date_created', 'slug', 'image_address','get_food_image']
+        fields = ['id','name','category','price','image','views','ingredients','date_created', 'slug', 'dish_type','get_food_image']
 
 
 class FoodImagesSerializer(serializers.ModelSerializer):
