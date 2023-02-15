@@ -44,9 +44,11 @@ class ReviewsSerializer(serializers.ModelSerializer):
 class OrderItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        fields = ['id','food', 'date_ordered', 'get_order_item_price', 'get_order_item_category','get_order_item_image']
+        fields = ['id','user','food', 'date_ordered', 'get_order_item_price', 'get_order_item_category','get_order_item_image','quantity','get_usernames','ordered','get_total_order_price']
+        read_only_fields = ['user','food']
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id','user','ordered_foods','date_ordered','ordered','get_username','get_user_ordering_profile_picture']
+        read_only_fields = ['user']
