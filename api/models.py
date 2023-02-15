@@ -83,6 +83,45 @@ class FoodImages(models.Model):
     def get_food_name(self):
         return self.food.name
 
+class OrderItem(models.Model):
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.food.name
+
+    def get_order_item_price(self):
+        return self.food.price
+
+    def get_order_item_category(self):
+        return self.food.category
+
+    def get_order_item_image(self):
+        if self.food.image:
+            return "http://127.0.0.1:8000" + self.food.image.url
+        return ""
+
+
+class Order(models.Model):
+    user = models.ForeignKey(DeUser, on_delete=models.CASCADE)
+    ordered_foods = models.ManyToManyField(OrderItem)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    ordered = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+    def get_username(self):
+        return self.user.username
+
+    def get_user_ordering_profile_picture(self):
+        user = User.object.get(username=self.user.username)
+        u_profile = Profile.objects.get(user=user)
+        if u_profile:
+            return "http://127.0.0.1:8000" + u_profile.profile_pic.url
+        return ""
+
+
 class Reviews(models.Model):
     user = models.ForeignKey(DeUser, on_delete=models.CASCADE)
     review = models.TextField()

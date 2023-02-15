@@ -11,7 +11,7 @@ from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from .models import Food, FoodImages, Reviews, FoodReviews, PrivateUserMessage
-from .serializers import FoodSerializer, FoodImagesSerializer,ReviewsSerializer,FoodReviewsSerializer,PrivateUserMessageSerializer
+from .serializers import FoodSerializer, FoodImagesSerializer,ReviewsSerializer,FoodReviewsSerializer,PrivateUserMessageSerializer, OrderItemsSerializer, OrderSerializer
 
 class AllFoodView(generics.ListCreateAPIView):
     queryset =  Food.objects.all().order_by('-date_created')

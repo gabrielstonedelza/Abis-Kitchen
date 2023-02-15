@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Food, FoodImages, Notifications, Reviews, FoodReviews, PrivateUserMessage
+from .models import Food, FoodImages, Notifications, Reviews, FoodReviews, PrivateUserMessage,Order, OrderItem
 
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,3 +39,14 @@ class ReviewsSerializer(serializers.ModelSerializer):
         model = Reviews
         fields = ['id','user','review','date_added','get_username']
         read_only_fields = ['user']
+
+
+class OrderItemsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = ['id','food', 'date_ordered', 'get_order_item_price', 'get_order_item_category','get_order_item_image']
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id','user','ordered_foods','date_ordered','ordered','get_username','get_user_ordering_profile_picture']
