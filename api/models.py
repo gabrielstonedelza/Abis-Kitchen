@@ -46,7 +46,7 @@ class Food(models.Model):
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100, choices=FOOD_CATEGORY, default="Local")
     price = models.DecimalField(blank=True, decimal_places=2, max_digits=10, default=00.00)
-    image = models.ImageField(upload_to='images/food', blank=True,)
+    image = models.ImageField(upload_to='images', blank=True,)
     views = models.IntegerField(default=0)
     dish_type = models.CharField(max_length=255,default="Special",choices=DISH_CATEGORY)
     ingredients = models.CharField(max_length=200, blank=True,)
