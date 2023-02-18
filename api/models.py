@@ -58,7 +58,7 @@ class Food(models.Model):
 
     def get_food_image(self):
         if self.image:
-            return "http://127.0.0.1:8000"+self.image.url
+            return "https://abiskitchen.xyz/"+self.image.url
         return ""
 
     def save(self, *args, **kwargs):
