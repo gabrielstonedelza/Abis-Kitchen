@@ -58,7 +58,7 @@ class Food(models.Model):
 
     def get_food_image(self):
         if self.image:
-            return "https://abiskitchen.xyz"+self.image.url
+            return "http://127.0.0.1:8000"+self.image.url
         return ""
 
     def save(self, *args, **kwargs):
@@ -139,6 +139,25 @@ class Order(models.Model):
             return "http://127.0.0.1:8000" + u_profile.profile_pic.url
         return ""
 
+class AddToFavorites(models.Model):
+    food = models.ForeignKey(Food, on_delete=models.CASCADE, related_name="favorites")
+    user = models.ForeignKey(DeUser, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.food.name
+
+    def get_food_name(self):
+        return self.food.name
+
+    def get_username(self):
+        return self.user.username
+
+    def get_food_pic(self):
+        if self.food.image:
+            return "http://127.0.0.1:8000" + self.food.image.url
+        return ""
+
 
 class Reviews(models.Model):
     user = models.ForeignKey(DeUser, on_delete=models.CASCADE)
@@ -165,6 +184,11 @@ class FoodReviews(models.Model):
 
     def get_username(self):
         return self.user.username
+
+    def get_food_pic(self):
+        if self.food.image:
+            return "http://127.0.0.1:8000" + self.food.image.url
+        return ""
 
 class PrivateUserMessage(models.Model):
     sender = models.ForeignKey(DeUser, on_delete=models.CASCADE)

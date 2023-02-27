@@ -13,5 +13,8 @@ urlpatterns = [
     path('clear_car/', views.clear_cart),
     path('cart_item_count/', views.cart_item_count),
     path('get_my_cart_items/', views.get_my_cart_items),
+#     favorites
+    path('add_to_favorites/',views.add_to_favorites),
+    path('get_my_favorites/',views.get_my_favorites),
 
 ]

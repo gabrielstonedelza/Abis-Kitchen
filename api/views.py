@@ -10,8 +10,8 @@ from datetime import datetime, date, time, timedelta
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.http import Http404
-from .models import Food, FoodImages, Reviews, FoodReviews, PrivateUserMessage, Order, OrderItem
-from .serializers import FoodSerializer, FoodImagesSerializer,ReviewsSerializer,FoodReviewsSerializer,PrivateUserMessageSerializer, OrderItemsSerializer, OrderSerializer
+from .models import Food, FoodImages, Reviews, FoodReviews, PrivateUserMessage, Order, OrderItem, AddToFavorites
+from .serializers import FoodSerializer, FoodImagesSerializer,ReviewsSerializer,FoodReviewsSerializer,PrivateUserMessageSerializer, OrderItemsSerializer, OrderSerializer,AddToFavoriteSerializer
 
 class AllFoodView(generics.ListCreateAPIView):
     queryset =  Food.objects.all().order_by('-date_created')
@@ -147,4 +147,24 @@ def get_my_cart_items(request):
 def cart_item_count(request):
     items = Order.objects.filter(user=request.user,ordered=False)
     serializer = OrderSerializer(items, many=True)
+    return Response(serializer.data)
+
+# favorites
+@api_view(['GET','POST'])
+@permission_classes([permissions.IsAuthenticated])
+def add_to_favorites(request,slug):
+    food = get_object_or_404(Food, slug=slug)
+    serializer = AddToFavoriteSerializer(data=request.data)
+    if serializer.is_valid():
+        if not AddToFavorites.objects.filter(food=food).filter(user=request.user).exists():
+            serializer.save(user=request.user,food=food)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_my_favorites(request):
+    favorites = AddToFavorites.objects.filter(user=request.user)
+    serializer = AddToFavoriteSerializer(favorites, many=True)
     return Response(serializer.data)
