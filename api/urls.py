@@ -26,5 +26,4 @@ urlpatterns = [
 #     increase and decrease order quantity
     path("increase_item_quantity/<int:id>/<str:slug>/", views.increase_item_quantity),
     path("decrease_item_quantity/<int:id>/<str:slug>/", views.decrease_item_quantity),
-
 ]
