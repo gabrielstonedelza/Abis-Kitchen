@@ -11,6 +11,7 @@ DeUser = settings.AUTH_USER_MODEL
 
 FOOD_CATEGORY = (
     ("Local", "Local"),
+    ("Side", "Side"),
     ("Continental", "Continental"),
     ("Sea Food", "Sea Food"),
     ("Breakfast", "Breakfast"),
@@ -90,8 +91,15 @@ class OrderItem(models.Model):
     ordered = models.BooleanField(default=False)
     date_ordered = models.DateTimeField(auto_now_add=True)
 
+    def get_food_slug(self):
+        return self.food.slug
+
     def __str__(self):
         return self.food.name
+    def get_food_name(self):
+        return self.food.name
+    def get_price(self):
+        return self.food.price
 
     def get_total_order_price(self):
         return self.quantity * self.food.price
@@ -157,6 +165,11 @@ class AddToFavorites(models.Model):
         if self.food.image:
             return "http://127.0.0.1:8000" + self.food.image.url
         return ""
+    def food_slug(self):
+        return self.food.slug
+
+    def get_food_price(self):
+        return self.food.price
 
 
 class Reviews(models.Model):

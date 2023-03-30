@@ -44,7 +44,7 @@ class ReviewsSerializer(serializers.ModelSerializer):
 class OrderItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        fields = ['id','user','food', 'date_ordered', 'get_order_item_price', 'get_order_item_category','get_order_item_image','quantity','get_usernames','ordered','get_total_order_price']
+        fields = ['id','user','food', 'date_ordered', 'get_order_item_price', 'get_order_item_category','get_order_item_image','quantity','get_usernames','ordered','get_total_order_price','get_food_name','get_price', 'get_food_slug']
         read_only_fields = ['user','food']
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -57,5 +57,5 @@ class OrderSerializer(serializers.ModelSerializer):
 class AddToFavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = AddToFavorites
-        fields = ['id','food','user','review','date_added','get_food_name','get_username','get_food_pic']
+        fields = ['id','food','user','date_added','get_food_name','get_username','get_food_pic','food_slug','get_food_price']
         read_only_fields = ['user','food']
