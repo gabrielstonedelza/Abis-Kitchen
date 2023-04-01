@@ -183,6 +183,14 @@ class Reviews(models.Model):
     def get_username(self):
         return self.user.username
 
+    def get_user_profile_pic(self):
+        de_user = User.objects.get(username=self.user.username)
+        my_user = Profile.objects.get(user=de_user)
+        if my_user:
+            return "http://127.0.0.1:8000" + my_user.profile_pic.url
+        return ""
+
+
 class FoodReviews(models.Model):
     food = models.ForeignKey(Food, on_delete=models.CASCADE, related_name="food_reviews")
     user = models.ForeignKey(DeUser, on_delete=models.CASCADE)
@@ -201,6 +209,13 @@ class FoodReviews(models.Model):
     def get_food_pic(self):
         if self.food.image:
             return "http://127.0.0.1:8000" + self.food.image.url
+        return ""
+
+    def get_user_profile_pic(self):
+        de_user = User.objects.get(username=self.user.username)
+        my_user = Profile.objects.get(user=de_user)
+        if my_user:
+            return "http://127.0.0.1:8000" + my_user.profile_pic.url
         return ""
 
 class PrivateUserMessage(models.Model):

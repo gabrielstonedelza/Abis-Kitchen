@@ -30,14 +30,14 @@ class PrivateUserMessageSerializer(serializers.ModelSerializer):
 class FoodReviewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodReviews
-        fields = ['id','food','user','review','date_added','get_food_name','get_username','get_food_pic']
+        fields = ['id','food','user','review','date_added','get_food_name','get_username','get_food_pic','get_user_profile_pic']
         read_only_fields = ['user','food']
 
 
 class ReviewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reviews
-        fields = ['id','user','review','date_added','get_username']
+        fields = ['id','user','review','date_added','get_username','get_user_profile_pic']
         read_only_fields = ['user']
 
 

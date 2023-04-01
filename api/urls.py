@@ -8,6 +8,7 @@ urlpatterns = [
     path('reviews/', views.AllReviews.as_view()),
     path('sides/', views.AllSidesFoodView.as_view()),
     path('food-reviews/', views.AllFoodReviews.as_view()),
+    path('get_food_reviews/<str:slug>/', views.get_food_reviews),
     path('food-detail<int:food>/', views.food_detail_images),
     path('add_to_cart/<str:slug>/', views.add_to_cart),
     path('remove_from_cart/<int:pk>/', views.remove_from_cart),
@@ -26,4 +27,7 @@ urlpatterns = [
 #     increase and decrease order quantity
     path("increase_item_quantity/<int:id>/<str:slug>/", views.increase_item_quantity),
     path("decrease_item_quantity/<int:id>/<str:slug>/", views.decrease_item_quantity),
+#     reviews
+    path('add_food_review/<str:slug>/',views.add_food_review),
+    path('add_review/',views.add_review),
 ]

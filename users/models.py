@@ -31,7 +31,7 @@ class Profile(models.Model):
 
     def get_profile_pic(self):
         if self.profile_pic:
-            return "http://127.0.0.1:80000" + self.profile_pic.url
+            return "http://127.0.0.1:8000" + self.profile_pic.url
         return ''
 
     def get_email(self):

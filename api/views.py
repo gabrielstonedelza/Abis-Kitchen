@@ -255,3 +255,31 @@ class AllSidesFoodView(generics.ListCreateAPIView):
         queryset = self.get_queryset()
         serializer = FoodSerializer(queryset, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_food_reviews(request,slug):
+    food = get_object_or_404(Food,slug=slug)
+    review = FoodReviews.objects.filter(food=food).order_by('-date_added')
+    serializer = FoodReviewsSerializer(review,many=True)
+    return Response(serializer.data)
+
+# reviews
+@api_view(['GET','POST'])
+@permission_classes([permissions.IsAuthenticated])
+def add_food_review(request,slug):
+    food = get_object_or_404(Food, slug=slug)
+    serializer = FoodReviewsSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user, food=food)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','POST'])
+@permission_classes([permissions.IsAuthenticated])
+def add_review(request,slug):
+    serializer = ReviewsSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
