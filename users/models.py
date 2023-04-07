@@ -7,7 +7,7 @@ DeUser = settings.AUTH_USER_MODEL
 class User(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     full_name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=16, unique=True)
+    phone_number = models.CharField(max_length=30, unique=True)
 
 
     REQUIRED_FIELDS = ['username', 'full_name', 'phone_number']
